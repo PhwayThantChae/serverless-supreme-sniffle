@@ -1,0 +1,35 @@
+{
+  "name": "serverless-supreme-sniffle",
+  "version": "0.1.0",
+  "bin": {
+    "serverless-supreme-sniffle": "bin/serverless-supreme-sniffle.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "aws-cdk": "1.134.0",
+    "@aws-cdk/assertions": "1.134.0",
+    "@types/jest": "^26.0.10",
+    "@types/node": "10.17.27",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.2.0",
+    "ts-node": "^9.0.0",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.134.0",
+    "@aws-cdk/aws-dynamodb": "^1.134.0",
+    "@aws-cdk/aws-lambda": "^1.134.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.134.0",
+    "@aws-cdk/aws-s3": "^1.134.0",
+    "@aws-cdk/aws-sns": "1.134.0",
+    "@aws-cdk/aws-sns-subscriptions": "1.134.0",
+    "@aws-cdk/aws-sqs": "^1.134.0",
+    "@aws-cdk/core": "1.134.0",
+    "uuid": "^8.3.2"
+  }
+}
