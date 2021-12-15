@@ -7,6 +7,7 @@ import * as cdk from '@aws-cdk/core';
 import * as quotation_service from '../lib/quotation-service';
 import * as quotation_keeping_service from '../lib/quotation-keeping-service';
 import * as quotation_list_service from '../lib/quotation-list-service';
+import * as quotation_attachment_service from '../lib/quotation-attachment-service';
 // import { Duration } from '@aws-cdk/core';
 
 export class ApiStack extends cdk.Stack {
@@ -35,30 +36,32 @@ export class ApiStack extends cdk.Stack {
     });
 
     // create bucket to store for attachments
-    // const s3Bucket = new s3.Bucket(this, 'quotation-attachments', {
-    //   // bucketName: 'my-bucket',
-    //   removalPolicy: cdk.RemovalPolicy.DESTROY,
-    //   autoDeleteObjects: true,
-    //   versioned: false,
-    //   publicReadAccess: false,
-    //   encryption: s3.BucketEncryption.S3_MANAGED,
-    //   cors: [
-    //     {
-    //       allowedMethods: [
-    //         s3.HttpMethods.GET,
-    //         s3.HttpMethods.POST,
-    //         s3.HttpMethods.PUT
-    //       ],
-    //       allowedOrigins: ['*'],
-    //       allowedHeaders: ['*'],
-    //     },
-    //   ]
-    // });
+    const s3Bucket = new s3.Bucket(this, 'quotation-attachments', {
+      // bucketName: 'my-bucket',
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
+      versioned: false,
+      publicReadAccess: false,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      cors: [
+        {
+          allowedMethods: [
+            s3.HttpMethods.GET,
+            s3.HttpMethods.POST,
+            s3.HttpMethods.PUT
+          ],
+          allowedOrigins: ['*'],
+          allowedHeaders: ['*'],
+        },
+      ]
+    });
 
     const svcQuotationService = new quotation_service.QuotationService(this, 'QuotationService', quotationQueue);
 
     const svcQuotationKeepingService = new quotation_keeping_service.QuotationKeepingService(this,'QuotationKeepingService', quotationQueue, quotationTable)
 
     const svcQuotationListService = new quotation_list_service.QuotationListService(this,'QuotationListService', quotationTable)
+
+    const svcQuotationAttachmentService = new quotation_attachment_service.QuotationAttachmentService(this,'QuotationAttachmentService', s3Bucket)
   }
 }
