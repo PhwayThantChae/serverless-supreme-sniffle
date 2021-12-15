@@ -31,7 +31,7 @@ export class ApiStack extends cdk.Stack {
     // Create a new dynamodb table called Attachment
     const attachmentTable = new dynamodb.Table(this, 'Attachment', {
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
-      tableName: 'Attachment',
+      tableName: 'Quotation-Attachment',
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
 
@@ -41,7 +41,7 @@ export class ApiStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
       versioned: false,
-      publicReadAccess: false,
+      publicReadAccess: true,
       encryption: s3.BucketEncryption.S3_MANAGED,
       cors: [
         {
@@ -62,6 +62,6 @@ export class ApiStack extends cdk.Stack {
 
     const svcQuotationListService = new quotation_list_service.QuotationListService(this,'QuotationListService', quotationTable)
 
-    const svcQuotationAttachmentService = new quotation_attachment_service.QuotationAttachmentService(this,'QuotationAttachmentService', s3Bucket)
+    const svcQuotationAttachmentService = new quotation_attachment_service.QuotationAttachmentService(this,'QuotationAttachmentService', s3Bucket, attachmentTable)
   }
 }
