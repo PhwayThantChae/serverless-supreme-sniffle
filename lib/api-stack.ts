@@ -8,6 +8,7 @@ import * as quotation_service from '../lib/quotation-service';
 import * as quotation_keeping_service from '../lib/quotation-keeping-service';
 import * as quotation_list_service from '../lib/quotation-list-service';
 import * as quotation_attachment_service from '../lib/quotation-attachment-service';
+import * as quotation_delete_service from '../lib/quotation-delete-service';
 // import { Duration } from '@aws-cdk/core';
 
 export class ApiStack extends cdk.Stack {
@@ -63,5 +64,7 @@ export class ApiStack extends cdk.Stack {
     const svcQuotationListService = new quotation_list_service.QuotationListService(this,'QuotationListService', quotationTable)
 
     const svcQuotationAttachmentService = new quotation_attachment_service.QuotationAttachmentService(this,'QuotationAttachmentService', s3Bucket, attachmentTable)
+
+    const svcQuotationDeleteService = new quotation_delete_service.QuotationDeleteService(this,'QuotationDeleteService', quotationTable)
   }
 }

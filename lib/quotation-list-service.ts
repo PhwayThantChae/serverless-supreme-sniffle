@@ -1,8 +1,6 @@
 import * as core from '@aws-cdk/core';
-import * as sqs from '@aws-cdk/aws-sqs';
 import * as dynamodb from '@aws-cdk/aws-dynamodb';
 import * as lambda from '@aws-cdk/aws-lambda';
-import * as eventsources from '@aws-cdk/aws-lambda-event-sources';
 import * as apiGateway from '@aws-cdk/aws-apigateway';
 
 export class QuotationListService extends core.Construct {
